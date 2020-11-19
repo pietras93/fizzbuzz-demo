@@ -11,6 +11,8 @@ import {
 } from '@nestjs/common';
 import { Request, Response } from 'express';
 
+const PORT = +process.env.PORT || 3000;
+
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     cors: true,
@@ -40,6 +42,6 @@ async function bootstrap() {
         }),
     }),
   );
-  await app.listen(3000);
+  await app.listen(PORT);
 }
 bootstrap();
