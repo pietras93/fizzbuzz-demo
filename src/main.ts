@@ -3,13 +3,8 @@ import * as rateLimit from 'express-rate-limit';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { NestExpressApplication } from '@nestjs/platform-express/interfaces/nest-express-application.interface';
-import {
-  BadRequestException,
-  MethodNotAllowedException,
-  ValidationError,
-  ValidationPipe,
-} from '@nestjs/common';
-import { Request, Response } from 'express';
+import { Validator } from './validator';
+import { AllowedMethodsMiddleware } from './allowed-methods.middleware';
 
 const PORT = +process.env.PORT || 3000;
 
@@ -25,23 +20,8 @@ async function bootstrap() {
       max: 100, // limit each IP to 100 requests per 10 minutes
     }),
   );
-  app.use((req: Request, res: Response, next: Function) => {
-    if (req.method !== 'POST') {
-      throw new MethodNotAllowedException('Method not supported');
-    }
-
-    return next();
-  });
-  app.useGlobalPipes(
-    new ValidationPipe({
-      whitelist: true,
-      exceptionFactory: (errors: ValidationError[]) =>
-        new BadRequestException({
-          response: '',
-          error: `Invalid input. ${errors.join(', ')}`,
-        }),
-    }),
-  );
+  app.use(AllowedMethodsMiddleware);
+  app.useGlobalPipes(Validator);
   await app.listen(PORT);
 }
 bootstrap();
