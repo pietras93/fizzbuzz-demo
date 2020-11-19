@@ -65,9 +65,9 @@ describe('AppController (e2e)', () => {
       });
   });
 
-  it('/fizzbuzzer (POST)', () => {
+  it('/fazzbozz (POST)', () => {
     return request(app.getHttpServer())
-      .post('/fizzbuzzer')
+      .post('/fazzbozz')
       .expect(404);
   });
 
