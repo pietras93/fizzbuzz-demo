@@ -2,14 +2,14 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { AllowedMethodsMiddleware } from '../src/allowed-methods.middleware';
 import { Validator } from '../src/validator';
 import * as request from 'supertest';
-import { AppModule } from './../src/app.module';
+import { FizzBuzzModule } from '../src/fizzbuzz.module';
 
 describe('AppController (e2e)', () => {
   let app;
 
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [AppModule],
+      imports: [FizzBuzzModule],
     }).compile();
 
     app = moduleFixture.createNestApplication();

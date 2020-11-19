@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
-export class AppService {
+export class FizzBuzzService {
   getFizzBuzz(n: number): string {
     const elements = [];
 

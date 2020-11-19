@@ -1,7 +1,7 @@
 import * as helmet from 'helmet';
 import * as rateLimit from 'express-rate-limit';
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
+import { FizzBuzzModule } from './fizzbuzz.module';
 import { NestExpressApplication } from '@nestjs/platform-express/interfaces/nest-express-application.interface';
 import { Validator } from './validator';
 import { AllowedMethodsMiddleware } from './allowed-methods.middleware';
@@ -9,7 +9,7 @@ import { AllowedMethodsMiddleware } from './allowed-methods.middleware';
 const PORT = +process.env.PORT || 3000;
 
 async function bootstrap() {
-  const app = await NestFactory.create<NestExpressApplication>(AppModule, {
+  const app = await NestFactory.create<NestExpressApplication>(FizzBuzzModule, {
     cors: true,
   });
   app.set('trust proxy', 1);
