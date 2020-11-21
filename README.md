@@ -12,9 +12,9 @@ App utilizes helemet middleware that sets various headers to improve security. T
 
 Port on which apps listens on is set by `PORT` environment variable and defaults to 3000 if env var is not set.
 
-## Build and deploy
+## Usage
 
-### Local
+### Local build
 
 To build project locally (outside of docker) you will need to install dependencies:
 `npm i`
@@ -63,3 +63,18 @@ and deploy that image to Cloud Run with CLI by:
 You can test the project running in Google Cloud Run.
 Server address https://fizzbuzz-demo-34vn5aovga-ew.a.run.app/
 Example request: **POST** _/fizzbuzz_ `{ "count": 20 }`
+
+## Testing
+
+### Locally
+
+To test the docker image locally, build it first, than run it using
+`docker run -p "3000:3000" TAGNAME`
+This will expose port 3000, you can also change this port config and add `PORT env variable to the app. Then you can curl the proper request to see if the response is correct`curl localhost:3000/fizzbuzz -X POST -H 'Content-type: application/json' -d '{"count":20}'`Response should look like this:`{"error":null,"response":"1 2 Fizz 4 Buzz Fizz 7 8 Fizz Buzz 11 Fizz 13 14 FizzBuzz 16 17 Fizz 19 Buzz"}`
+
+You can also try other methods, paths and bodies, see e2e test for examples. Use `-i` option to check response status code and headers.
+
+### Cloud Run instance
+
+Cloud Run instance on https://fizzbuzz-demo-34vn5aovga-ew.a.run.app/ is open to public so can be tested in a similar fashion
+`curl https://fizzbuzz-demo-34vn5aovga-ew.a.run.app/fizzbuzz -X POST -H 'Content-type: application/json' -d '{"count":20}'`
